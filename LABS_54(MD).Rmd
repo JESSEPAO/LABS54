@@ -1,0 +1,123 @@
+----------------------------------------------
+title: "LABS_54"
+author: "JESSICA PAOLA AGUILAR SERVIN"
+date: "2023-03-17"
+output: html_document
+--------------------------------------------------
+###################################
+LABORATORIO DE EJEMPLOS EN R   
+###################################
+
+CREADO POR JESSICA PAOLA AGUILAR SERVIN
+EJEMPLOS DE VISUALIZACIÓN EN R
+
+####################################
+EJEMPLO DE ETIQUETAS UNO
+LLAMAR PAQUETERIAS
+install.packages("ggplot2")
+```{r}
+library(ggplot2)
+```
+
+INSTALAR PAQUETERIA
+install.packages("maps")
+```{r}
+library(maps)
+```
+
+TRAZAR MAPA DE USA
+```{r}
+df <- data.frame(x = state.center$x, y = state.center$y,
+                 state = state.name)
+
+p <- ggplot(df, aes(x = x, y = y)) + 
+  geom_polygon(data = map_data("state"),
+               color = "white",
+               aes(x = long, y = lat,
+                   fill = map_data("state")$region,
+                   group = group)) +
+  guides(fill = FALSE)
+
+```
+
+VER P
+```{r}
+p
+```
+
+TITULO DEL MAPA
+```{r}
+p + 
+  geom_text(aes(x = -115, y = 25,
+                label = "Mapa de los Estados Unidos"),
+            stat = "unique")
+```
+
+MODIFICA COLOR DE TITULO
+```{r}
+p + 
+  geom_text(aes(x = -115, y = 25,
+                label = "Mapa de los Estados Unidos"),
+            stat = "unique",
+            size = 4, color = "red")
+```
+
+CREAR ETIQUETAS
+```{r}
+p + 
+  geom_text(aes(label = state))
+```
+
+
+####################################
+EJEMPLO DE ETIQUETAS DOS
+ETIQUETAS GEOM-LABEL
+
+ETIQUETAS
+```{r}
+p + 
+  geom_label(aes(x = -115, y = 25,
+                 label = "Mapa de los Estados Unidos"),
+             stat = "unique")
+```
+
+PERSONALIZAR ETIQUETAS
+```{r}
+p + 
+  geom_label(aes(x = -115, y = 25,
+                 label = "Mapa de los Estados Unidos"),
+             stat = "unique",
+             size = 5, color = "red", fill = "green") 
+```
+
+ETIQUETAR OBSERVACIONES
+```{r}
+
+p + 
+  geom_label(aes(label = state))
+```
+
+
+####################################
+EJEMPLO DE ETIQUETAS TRES
+ETIQUETAS GGREPEL
+
+INSTALAR PAQUETERIA
+install.packages("ggrepel")
+```{r}
+library(ggrepel)
+```
+
+CREAR NOMBRES DE ETIQUETAS
+```{r}
+p + 
+  geom_text_repel(aes(label = state))
+```
+
+OTRO ESTILO DE ETIQUETA
+
+```{r}
+p + 
+  geom_label_repel(aes(label = state))
+```
+
